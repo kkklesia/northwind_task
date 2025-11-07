@@ -1,8 +1,7 @@
 # northwind_task
 
 # Task: Write a SQL query that returns the following information for each category:
-•	CategoryName
-
+•	Category Name
 •	Total Sales
 •	AverageOrderValue
 •	AverageTimeToShip (in days)
