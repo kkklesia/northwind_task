@@ -1,3 +1,4 @@
+-- CTE: total category sales
 with sales as (
 select 
 	c.category_name, 
@@ -8,7 +9,8 @@ join categories c on p.category_id = c.category_id
 group by c.category_name
 order by c.category_name
 ),
-
+	
+-- CTE with subquery: AOV per category
 avg_order_value as (
 select
 	orders_per_category.category_name,
@@ -27,6 +29,7 @@ from (
 group by orders_per_category.category_name
 ),
 
+-- CTE: average number of days to ship
 avg_time_to_ship as (
 select
 	c.category_name,
@@ -38,6 +41,7 @@ join categories c on p.category_id = c.category_id
 group by c.category_name
 ),
 
+-- CTE with subquery: ranked products per categories by total_sales descending
 ranked_products as (
 select 
 	category_name,
@@ -55,6 +59,7 @@ from (
     group by c.category_name, p.product_id) 
 ),
 
+-- CTE: total sales of the top 5 products devided by the total sales of all products in the category	
 top_5_ratio as (
 select
 	category_name,
@@ -63,6 +68,7 @@ from ranked_products
 group by category_name
 ),
 
+-- CTE: number of orders per customer
 avg_order_freq as (
 select 
 	c.category_name,
@@ -74,6 +80,7 @@ join categories c on p.category_id = c.category_id
 group by c.category_name
 )
 
+-- final query
 select 
     s.category_name,
     round(s.total_sales::numeric, 0) as total_sales,
