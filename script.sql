@@ -10,7 +10,7 @@ group by c.category_name
 order by c.category_name
 ),
 	
--- CTE with subquery: AOV per category
+-- CTE with a subquery: AOV per category
 avg_order_value as (
 select
 	orders_per_category.category_name,
@@ -41,7 +41,7 @@ join categories c on p.category_id = c.category_id
 group by c.category_name
 ),
 
--- CTE with subquery: ranked products per categories by total_sales descending
+-- CTE with a window function and a subquery: ranked products per categories by total_sales descending
 ranked_products as (
 select 
 	category_name,
